@@ -47,14 +47,6 @@ def quizTimes():
         response.set_cookie('keyword', parse.quote(keyword))
 
         return response
-    
-    # elif request.method == 'POST':
-    #     keyword = request.cookies.get('keyword')
-    #     answer = request.form['answer']
-
-    #     if keyword == answer:
-    #         return render_template('resp.html', result="정답입니다!", url=f"./{times}")
-    #     return render_template('resp.html', result=f"오답입니다. \n정답은 {keyword}입니다.", url=f"./{times}")
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=8000)
