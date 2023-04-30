@@ -9,7 +9,12 @@
 	<body>
 		{{quiz}}
 		<form method="post">
-			<input type="text" placeholder="정답을 입력하세요." name="answer" />
+			<input
+				type="text"
+				placeholder="정답을 입력하세요."
+				name="answer"
+				autocomplete="off"
+			/>
 			<button type="submit">제출</button>
 		</form>
 		<script>
