@@ -1,6 +1,8 @@
 import question
 from flask import *
 import random
+import base64
+from urllib import parse
 
 app = Flask(__name__)
 
@@ -19,10 +21,12 @@ questionList = list(questionDict)
 def index():
     return render_template('index.html')
 
-@app.route('/quiz', methods=['GET', 'POST'])
+@app.route('/quiz', methods=['GET'])
 def quizTimes():
     if request.method == 'GET':
         times = request.args.getlist('times[]')
+        if times == []:
+            return redirect(url_for('index'))
         quizDict = []
         keywords = []
         for i in times:
@@ -40,7 +44,8 @@ def quizTimes():
             quiz = quizList[0] # 문제
 
         response = make_response(render_template('quiz.html', quiz=quiz))
-        response.set_cookie('keyword', str(keyword))
+        keyword = keyword.encode('utf-8')
+        response.set_cookie('keyword', parse.quote(keyword))
 
         return response
     
