@@ -12,5 +12,11 @@
 			<input type="text" placeholder="정답을 입력하세요." name="answer" />
 			<button type="submit">제출</button>
 		</form>
+		<script>
+			window.onload = function () {
+				var inputElement = document.getElementsByTagName("input")[0]; // input 요소 가져오기
+				inputElement.value = ""; // 값 지우기
+			};
+		</script>
 	</body>
 </html>

@@ -41,7 +41,7 @@ def quizTimes(times):
 
         resp = make_response(render_template('quiz.html', quiz=quiz))
         resp.set_cookie('keyword', str(keyword))
-        # resp.set_cookie('times', times)
+        resp.set_cookie('times', times)
 
         return resp
     
@@ -50,8 +50,8 @@ def quizTimes(times):
         answer = request.form['answer']
 
         if keyword == answer:
-            return render_template('resp.html', result="정답입니다!")
-        return render_template('resp.html', result=f"오답입니다. \n정답은 {keyword}입니다.")
+            return render_template('resp.html', result="정답입니다!", url=f"./{times}")
+        return render_template('resp.html', result=f"오답입니다. \n정답은 {keyword}입니다.", url=f"./{times}")
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=8000)

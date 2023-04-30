@@ -7,11 +7,11 @@
 		<title>Answer</title>
 	</head>
 	<body>
-		<h1>{{result}}</h1>
+		<h2>{{result}}</h2>
 		<script>
 			setTimeout(function () {
-				history.back();
-			}, 1500);
+				window.location.href = "{{url}}";
+			}, 1000);
 		</script>
 	</body>
 </html>
