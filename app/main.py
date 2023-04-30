@@ -44,9 +44,9 @@ def quizTimes():
 
         return response
     
-    elif request.method == 'POST':
-        keyword = request.cookies.get('keyword')
-        answer = request.form['answer']
+    # elif request.method == 'POST':
+    #     keyword = request.cookies.get('keyword')
+    #     answer = request.form['answer']
 
     #     if keyword == answer:
     #         return render_template('resp.html', result="정답입니다!", url=f"./{times}")
