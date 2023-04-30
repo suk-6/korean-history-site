@@ -1,0 +1,132 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Foldit:wght@700&display=swap');
+
+* {
+    font-family: 'Noto Serif KR', serif;
+}
+
+html {
+    width: 100vw;
+    height: 100vh;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #e0e0e0;
+}
+
+h1 {
+    position: absolute;
+    display: block;
+    font-family: 'Foldit', cursive;
+    width: 100vw;
+    text-align: center;
+    font-size: 90px;
+    margin: 0;
+    font-weight: 400;
+    left: 50%;
+    top: 25%;
+    transform: translate(-50%, -50%);
+}
+
+#button-field {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
+    row-gap: 20px;
+    column-gap: 24px;
+}
+
+#button-field button {
+    position: relative;
+    z-index: 2;
+    width: 175px;
+    height: 55px;
+    border: 2px solid #111111;
+    border-radius: 3px;
+    overflow: hidden;
+    transition: all .2s cubic-bezier(0.305, 0.160, 0.200, 1.030);
+}
+
+#button-field button:hover {
+    transform: scale(1.05);
+    border: 0px solid #111111;
+    ;
+}
+
+#button-field button span {
+    position: absolute;
+    z-index: 3;
+    font-weight: bold;
+    font-size: 15px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: all .2s cubic-bezier(0.305, 0.160, 0.200, 1.030);
+}
+
+#button-field button::before {
+    background-color: #111111;
+    position: absolute;
+    content: "";
+    z-index: 1;
+    width: 120%;
+    height: 100%;
+    top: -100%;
+    left: 0;
+    transition: all .2s cubic-bezier(0.305, 0.160, 0.200, 1.030);
+}
+
+#button-field button:hover::before {
+    top: 0;
+}
+
+#button-field button:hover span {
+    color: white;
+}
+
+@media (max-width: 768px) {
+    #button-field {
+        display: grid;
+        grid-template-rows: 1fr 1fr 1fr;
+        grid-template-columns: 1fr 1fr;
+        row-gap: 20px;
+        column-gap: 24px;
+    }
+
+    h1 {
+        font-size: 55px;
+        top: 20%;
+    }
+}
+
+@media (max-width: 425px) {
+    /* #button-field button {
+        width: 140px;
+        height: 30px;   
+    }
+    
+    #button-field button span {
+        font-size: 10px;
+    } */
+
+    h1 {
+        font-size: 40px;
+        top: 11%;
+    }
+
+    #button-field {
+        display: grid;
+        grid-template-rows: repeat(1fr, 6);
+        grid-template-columns: 1fr;
+        row-gap: 20px;
+        column-gap: 24px;
+    }
+}

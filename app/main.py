@@ -45,7 +45,7 @@ def quizTimes(times):
 
         return resp
     
-    elif request.method =='POST':
+    elif request.method == 'POST':
         keyword = request.cookies.get('keyword')
         answer = request.form['answer']
 
