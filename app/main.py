@@ -1,7 +1,6 @@
 import question
 from flask import *
 import random
-import base64
 from urllib import parse
 
 app = Flask(__name__)
