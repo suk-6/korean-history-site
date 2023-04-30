@@ -27,7 +27,7 @@
 		<script>
 			document
 				.getElementById("compare-btn")
-				.addEventListener("click", function () {
+				.addEventListener("click", () => {
 					var inputText = document.getElementById("input-text").value;
 					var cookieText = decodeURI(getCookie("keyword"));
 
@@ -49,12 +49,12 @@
 						"none";
 					document.getElementById("result").style.display = "block";
 
-					setTimeout(function () {
+					setTimeout(() => {
 						window.location.reload();
 					}, 1000);
 				});
 
-			function getCookie(name) {
+			const getCookie = (name) => {
 				var cookies = document.cookie.split("; ");
 				for (var i = 0; i < cookies.length; i++) {
 					var cookie = cookies[i].split("=");
