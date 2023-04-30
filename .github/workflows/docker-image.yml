@@ -2,7 +2,6 @@ name: Docker Image CI
 
 on:
   push:
-    branches: [ "main" ]
     tags:
       - 'v*'
 
@@ -27,5 +26,5 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: |
-            ghcr.io/${{ github.repository_owner }}/${{ github.action_repository }}:latest
-            ghcr.io/${{ github.repository_owner }}/${{ github.action_repository }}:${{ env.RELEASE_VERSION }}
+            ghcr.io/${{ github.repository_owner }}/korean-history-site:latest
+            ghcr.io/${{ github.repository_owner }}/korean-history-site:${{ env.RELEASE_VERSION }}
