@@ -19,39 +19,38 @@ questionList = list(questionDict)
 def index():
     return render_template('index.html')
 
-@app.route('/quiz')
-def quiz():
-    return render_template('selectquiz.html')
-
-@app.route('/quiz/<string:times>', methods=['GET', 'POST'])
-def quizTimes(times):
-    if times not in questionList:
-        return redirect(url_for('quiz'))
-    
-    if request.method =='GET':
-        quizDict = questionDict[times]
-        keywords = list(quizDict)
-        keyword = keywords[random.randint(0, len(keywords)-1)] # 정답
-        quizList = quizDict[keyword]
+@app.route('/quiz', methods=['GET', 'POST'])
+def quizTimes():
+    if request.method == 'GET':
+        times = request.args.getlist('times[]')
+        quizDict = []
+        keywords = []
+        for i in times:
+            if i not in questionList:
+                return redirect(url_for('index'))
+            quizDict.append(questionDict[i])
+            keywords.append([key for key in list(questionDict[i])])
+        timeNum = random.randint(0, len(times)-1)
+        keyword = keywords[timeNum][random.randint(0, len(keywords[timeNum])-1)] # 정답
+        quizList = quizDict[timeNum][keyword]
 
         if quizList is list:
             quiz = quizList[random.randint(0, len(quiz)-1)] # 문제
         else:
             quiz = quizList[0] # 문제
 
-        resp = make_response(render_template('quiz.html', quiz=quiz))
-        resp.set_cookie('keyword', str(keyword))
-        resp.set_cookie('times', times)
+        response = make_response(render_template('quiz.html', quiz=quiz))
+        response.set_cookie('keyword', str(keyword))
 
-        return resp
+        return response
     
-    elif request.method =='POST':
-        keyword = request.cookies.get('keyword')
-        answer = request.form['answer']
+    # elif request.method =='POST':
+    #     keyword = request.cookies.get('keyword')
+    #     answer = request.form['answer']
 
-        if keyword == answer:
-            return render_template('resp.html', result="정답입니다!", url=f"./{times}")
-        return render_template('resp.html', result=f"오답입니다. \n정답은 {keyword}입니다.", url=f"./{times}")
+    #     if keyword == answer:
+    #         return render_template('resp.html', result="정답입니다!", url=f"./{times}")
+    #     return render_template('resp.html', result=f"오답입니다. \n정답은 {keyword}입니다.", url=f"./{times}")
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=8000)
