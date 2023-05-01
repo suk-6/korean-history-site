@@ -11,6 +11,14 @@
 		<title>Korean History...</title>
 		<script>
 			let selection = [false, false, false, false, false, false];
+			let times = [
+				"goguryeo",
+				"baekjae",
+				"shilla",
+				"unifiedSilla",
+				"goryeo",
+				"joseon",
+			];
 
 			const update = (index) => {
 				/**
@@ -28,8 +36,10 @@
 			};
 
 			const switchSelection = (index) => {
-				selection[index] = !selection[index];
-				update(index);
+				// selection[index] = !selection[index];
+				// update(index);
+				// 일시적 리다이렉트
+				window.location.href = "/quiz?times[]=" + times[index];
 			};
 		</script>
 	</head>
