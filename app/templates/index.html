@@ -15,6 +15,8 @@
 		<h1>Korean History...</h1>
 
 		<div id="button-field"></div>
+		<br />
+		<button id="start" onclick="start()">시작</button>
 		<script>
 			const getCookie = (name) => {
 				var cookies = document.cookie.split("; ");
@@ -30,21 +32,6 @@
 			const timesJSON = getCookie("timesJSON");
 			const timesDict = JSON.parse(decodeURIComponent(timesJSON));
 
-			// const update = (index) => {
-			// 	/**
-			// 	 * @type {HTMLButtonElement}
-			// 	 */
-			// 	const button = document.querySelector(
-			// 		`#button-field > button:nth-child(${index + 1})`
-			// 	);
-			// 	// if (!button)
-			// 	//     return;
-
-			// 	// console.log("on");
-
-			// 	// button.style.color = "#00f";
-			// };
-
 			const buttonField = document.querySelector("#button-field");
 
 			Object.keys(timesDict).forEach((key) => {
@@ -52,6 +39,7 @@
 				span.textContent = `${timesDict[key]}`;
 
 				const button = document.createElement("button");
+				button.id = key;
 				button.onclick = function () {
 					switchSelection(key);
 				};
@@ -60,11 +48,51 @@
 				buttonField.appendChild(button);
 			});
 
+			const selection = Object.keys(timesDict).reduce((acc, key) => {
+				acc[key] = false;
+				return acc;
+			}, {});
+
+			const update = (index) => {
+				// /**
+				//  * @type {HTMLButtonElement}
+				//  */
+				// const button = document.querySelector(
+				// 	`#button-field > button:nth-child(${index + 1})`
+				// );
+				// if (!button) return;
+
+				// console.log("on");
+
+				// button.style.color = "#00f";
+
+				Object.entries(selection).forEach(([key, value]) => {
+					/**
+					 * @type {HTMLButtonElement}
+					 */
+					const button = document.querySelector(`#${key}`);
+					if (!button) return;
+
+					if (value) {
+						button.classList.add("active");
+					} else {
+						button.classList.remove("active");
+					}
+				});
+			};
+
 			const switchSelection = (times) => {
-				// selection[index] = !selection[index];
-				// update(index);
-				// 일시적 리다이렉트
-				window.location.href = "/quiz?times[]=" + times;
+				selection[times] = !selection[times];
+				update();
+			};
+
+			const start = () => {
+				const params = Object.entries(selection)
+					.filter(([key, value]) => value)
+					.map(([key, value]) => `times[]=${key}`)
+					.join("&");
+
+				window.location.href = "/quiz?" + params;
 			};
 		</script>
 	</body>
