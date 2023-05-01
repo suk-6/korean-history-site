@@ -14,7 +14,10 @@ const timesDict = JSON.parse(decodeURIComponent(timesJSON));
 
 const buttonField = document.querySelector("#button-field");
 
-const selection = new Array(Object.keys(timesDict).length).fill(false);
+const selection = Object.keys(timesDict).reduce((acc, key) => {
+	acc[key] = false;
+	return acc;
+}, {});
 
 const update = (key) => {
 	/**
@@ -24,7 +27,6 @@ const update = (key) => {
 
 	if (!button) return;
 
-    selection[key] = !selection[key];
     button.classList.toggle("active");
 };
 
@@ -48,10 +50,11 @@ Object.keys(timesDict).forEach((key) => {
 });
 
 const start = () => {
-	const params = Object.entries(selection)
-		.filter(([ key, value ]) => value)
-		.map(([ key, value ]) => `times[]=${key}`)
-		.join("&");
-
+    
+    const params = Object.entries(selection)
+    .filter(([ key, value ]) => value)
+    .map(([ key, value ]) => `times[]=${key}`)
+    .join("&");
+    
 	window.location.href = "/quiz?" + params;
 };
