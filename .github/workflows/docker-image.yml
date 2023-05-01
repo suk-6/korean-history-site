@@ -33,6 +33,7 @@ jobs:
               with:
                   host: ${{ secrets.HOST }}
                   username: ubuntu
+                  port: 2022
                   key: ${{ secrets.SSH_KEY }}
                   script: |
                       docker pull ghcr.io/${{ github.repository_owner }}/korean-history-site:latest
