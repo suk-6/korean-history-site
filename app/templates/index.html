@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 	<head>
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -17,83 +17,6 @@
 		<div id="button-field"></div>
 		<br />
 		<button id="start" onclick="start()">시작</button>
-		<script>
-			const getCookie = (name) => {
-				var cookies = document.cookie.split("; ");
-				for (var i = 0; i < cookies.length; i++) {
-					var cookie = cookies[i].split("=");
-					if (cookie[0] === name) {
-						return cookie[1];
-					}
-				}
-				return "";
-			};
-
-			const timesJSON = getCookie("timesJSON");
-			const timesDict = JSON.parse(decodeURIComponent(timesJSON));
-
-			const buttonField = document.querySelector("#button-field");
-
-			Object.keys(timesDict).forEach((key) => {
-				const span = document.createElement("span");
-				span.textContent = `${timesDict[key]}`;
-
-				const button = document.createElement("button");
-				button.id = key;
-				button.onclick = function () {
-					switchSelection(key);
-				};
-
-				button.appendChild(span);
-				buttonField.appendChild(button);
-			});
-
-			const selection = Object.keys(timesDict).reduce((acc, key) => {
-				acc[key] = false;
-				return acc;
-			}, {});
-
-			const update = (index) => {
-				// /**
-				//  * @type {HTMLButtonElement}
-				//  */
-				// const button = document.querySelector(
-				// 	`#button-field > button:nth-child(${index + 1})`
-				// );
-				// if (!button) return;
-
-				// console.log("on");
-
-				// button.style.color = "#00f";
-
-				Object.entries(selection).forEach(([key, value]) => {
-					/**
-					 * @type {HTMLButtonElement}
-					 */
-					const button = document.querySelector(`#${key}`);
-					if (!button) return;
-
-					if (value) {
-						button.classList.add("active");
-					} else {
-						button.classList.remove("active");
-					}
-				});
-			};
-
-			const switchSelection = (times) => {
-				selection[times] = !selection[times];
-				update();
-			};
-
-			const start = () => {
-				const params = Object.entries(selection)
-					.filter(([key, value]) => value)
-					.map(([key, value]) => `times[]=${key}`)
-					.join("&");
-
-				window.location.href = "/quiz?" + params;
-			};
-		</script>
+		<script src="{{ url_for('static', filename='js/main.js') }}"></script>
 	</body>
 </html>
