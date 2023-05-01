@@ -6,73 +6,66 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link
 			rel="stylesheet"
-			href="{{ url_for('static', filename='styles/selectquiz.css') }}"
+			href="{{ url_for('static', filename='styles/main.css') }}"
 		/>
 		<title>Korean History...</title>
-		<script>
-			let selection = [false, false, false, false, false, false];
-			let times = [
-				"goguryeo",
-				"baekjae",
-				"shilla",
-				"unifiedSilla",
-				"goryeo",
-				"joseon",
-			];
-
-			const update = (index) => {
-				/**
-				 * @type {HTMLButtonElement}
-				 */
-				const button = document.querySelector(
-					`#button-field > button:nth-child(${index + 1})`
-				);
-				// if (!button)
-				//     return;
-
-				// console.log("on");
-
-				// button.style.color = "#00f";
-			};
-
-			const switchSelection = (index) => {
-				// selection[index] = !selection[index];
-				// update(index);
-				// 일시적 리다이렉트
-				window.location.href = "/quiz?times[]=" + times[index];
-			};
-		</script>
 	</head>
 
 	<body>
-		<!-- <a href="/quiz/goguryeo">고구려</a><br>
-    <a href="/quiz/baekjae">백제</a><br>
-    <a href="/quiz/shilla">신라</a><br>
-    <a href="/quiz/unifiedSilla">통일신라</a><br>
-    <a href="/quiz/goryeo">고려</a><br>
-    <a href="/quiz/joseon">조선</a><br> -->
-
 		<h1>Korean History...</h1>
 
-		<div id="button-field">
-			<button onclick="switchSelection(0);">
-				<span>고구려</span>
-			</button>
-			<button onclick="switchSelection(1);">
-				<span>백제</span>
-			</button>
-			<button onclick="switchSelection(2);">
-				<span>신라</span>
-			</button>
-			<button onclick="switchSelection(3);">
-				<span>통일 신라</span>
-			</button>
-			<button onclick="switchSelection(4);">
-				<span>고려</span>
-			</button>
-			<button onclick="switchSelection(5);">
-				<span>조선</span>
-			</button>
-		</div>
+		<div id="button-field"></div>
+		<script>
+			const getCookie = (name) => {
+				var cookies = document.cookie.split("; ");
+				for (var i = 0; i < cookies.length; i++) {
+					var cookie = cookies[i].split("=");
+					if (cookie[0] === name) {
+						return cookie[1];
+					}
+				}
+				return "";
+			};
+
+			const timesJSON = getCookie("timesJSON");
+			const timesDict = JSON.parse(decodeURIComponent(timesJSON));
+
+			// const update = (index) => {
+			// 	/**
+			// 	 * @type {HTMLButtonElement}
+			// 	 */
+			// 	const button = document.querySelector(
+			// 		`#button-field > button:nth-child(${index + 1})`
+			// 	);
+			// 	// if (!button)
+			// 	//     return;
+
+			// 	// console.log("on");
+
+			// 	// button.style.color = "#00f";
+			// };
+
+			const buttonField = document.querySelector("#button-field");
+
+			Object.keys(timesDict).forEach((key) => {
+				const span = document.createElement("span");
+				span.textContent = `${timesDict[key]}`;
+
+				const button = document.createElement("button");
+				button.onclick = function () {
+					switchSelection(key);
+				};
+
+				button.appendChild(span);
+				buttonField.appendChild(button);
+			});
+
+			const switchSelection = (times) => {
+				// selection[index] = !selection[index];
+				// update(index);
+				// 일시적 리다이렉트
+				window.location.href = "/quiz?times[]=" + times;
+			};
+		</script>
 	</body>
 </html>

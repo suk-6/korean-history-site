@@ -2,23 +2,37 @@ import question
 from flask import *
 import random
 from urllib import parse
+import json
 
 app = Flask(__name__)
 
+questionKorean = {
+    'goguryeo': '고구려',
+    'baekjae': '백제',
+    'shilla': '신라',
+    'unifiedSilla': '통일 신라',
+    'goryeo': '고려',
+    'joseon': '조선'
+}
+
+
 questionDict = {
-    "goguryeo":question.goguryeo,
-    "baekjae":question.baekjae,
-    "shilla":question.shilla,
-    "unifiedSilla":question.unifiedSilla,
-    "goryeo":question.goryeo,
-    "joseon":question.joseon
+    "goguryeo": question.goguryeo,
+    "baekjae": question.baekjae,
+    "shilla": question.shilla,
+    "unifiedSilla": question.unifiedSilla,
+    "goryeo": question.goryeo,
+    "joseon": question.joseon
 }
 
 questionList = list(questionDict)
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    response = make_response(render_template('index.html'))
+    response.set_cookie("timesJSON", value=parse.quote(json.dumps(questionKorean)))
+    response.delete_cookie("keyword")
+    return response
 
 @app.route('/quiz', methods=['GET'])
 def quizTimes():
@@ -41,9 +55,10 @@ def quizTimes():
             quiz = quizList[random.randint(0, len(quiz)-1)] # 문제
         else:
             quiz = quizList[0] # 문제
+        
+        keyword = keyword.encode('utf-8')
 
         response = make_response(render_template('quiz.html', quiz=quiz))
-        keyword = keyword.encode('utf-8')
         response.set_cookie('keyword', parse.quote(keyword))
 
         return response
