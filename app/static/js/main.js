@@ -14,31 +14,23 @@ const timesDict = JSON.parse(decodeURIComponent(timesJSON));
 
 const buttonField = document.querySelector("#button-field");
 
-const selection = Object.keys(timesDict).reduce((acc, key) => {
-	acc[key] = false;
-	return acc;
-}, {});
+const selection = new Array(Object.keys(timesDict).length).fill(false);
 
-const update = (times) => {
+const update = (key) => {
 	/**
 	 * @type {HTMLButtonElement}
 	 */
-	const button = document.querySelector(`#${times}`);
+	const button = document.getElementById(key);
+
 	if (!button) return;
 
-	const value = selection[times] || false;
-
-	if (value) {
-		button.classList.add("active");
-	} else {
-		button.classList.remove("active");
-	}
+    selection[key] = !selection[key];
+    button.classList.toggle("active");
 };
 
-const switchSelection = (times) => {
-	console.log(times);
-	selection[times] = !selection[times];
-	update(times);
+const switchSelection = (key) => {
+	selection[key] = !selection[key];
+	update(key);
 };
 
 Object.keys(timesDict).forEach((key) => {
@@ -57,8 +49,8 @@ Object.keys(timesDict).forEach((key) => {
 
 const start = () => {
 	const params = Object.entries(selection)
-		.filter(([key, value]) => value)
-		.map(([key, value]) => `times[]=${key}`)
+		.filter(([ key, value ]) => value)
+		.map(([ key, value ]) => `times[]=${key}`)
 		.join("&");
 
 	window.location.href = "/quiz?" + params;

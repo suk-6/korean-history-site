@@ -94,10 +94,26 @@ h1 {
 }
 
 @media(hover: hover) and (pointer: fine) {
-    #button-field button:hover,
+
+    #button-field button:hover {
+        transform: scale(1.02);
+    }
+
     #button-field button.active {
         transform: scale(1.05);
+    }
+    
+    #button-field button:hover,
+    #button-field button.active {
         border: 0px solid #111111;
+    }
+
+    #button-field button:hover::before {
+        background-color: #191919;
+    }
+
+    #button-field button.active::before {
+        background-color: #111111;
     }
 
     #button-field button:hover::before,
