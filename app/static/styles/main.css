@@ -56,8 +56,7 @@ h1 {
 }
 
 #button-field button:hover:not(.active),
-#button-field button.active,
-#button-field button:focus {
+#button-field button.active {
     transform: scale(1.05);
     border: 0px solid #111111;
 }
@@ -86,14 +85,12 @@ h1 {
 }
 
 #button-field button:hover::before,
-#button-field button.active::before,
-#button-field button:focus::before {
+#button-field button.active::before {
     top: 0;
 }
 
 #button-field button:hover span,
-#button-field button.active span,
-#button-field button:focus span {
+#button-field button.active span {
     color: white;
 }
 
