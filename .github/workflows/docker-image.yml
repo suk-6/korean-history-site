@@ -6,7 +6,7 @@ on:
             - "v*"
 
 jobs:
-    image-push:
+    deploy-service:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout
