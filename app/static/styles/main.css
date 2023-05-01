@@ -55,12 +55,6 @@ h1 {
     transition: all .2s cubic-bezier(0.305, 0.160, 0.200, 1.030);
 }
 
-#button-field button:hover:not(.active),
-#button-field button.active {
-    transform: scale(1.05);
-    border: 0px solid #111111;
-}
-
 #button-field button span {
     position: absolute;
     z-index: 3;
@@ -68,6 +62,7 @@ h1 {
     font-size: 15px;
     top: 50%;
     left: 50%;
+    color: black;
     transform: translate(-50%, -50%);
     transition: all .2s cubic-bezier(0.305, 0.160, 0.200, 1.030);
 }
@@ -84,14 +79,37 @@ h1 {
     transition: all .2s cubic-bezier(0.305, 0.160, 0.200, 1.030);
 }
 
-#button-field button:hover::before,
-#button-field button.active::before {
-    top: 0;
+@media(hover: hover) and (pointer: fine) {
+    #button-field button:hover,
+    #button-field button.active {
+        transform: scale(1.05);
+        border: 0px solid #111111;
+    }
+
+    #button-field button:hover::before,
+    #button-field button.active::before {
+        top: 0;
+    }
+
+    #button-field button:hover span,
+    #button-field button.active span {
+        color: white;
+    }
 }
 
-#button-field button:hover span,
-#button-field button.active span {
-    color: white;
+@media(hover: none) and (pointer: coarse) {
+    #button-field button.active {
+        transform: scale(1.05);
+        border: 0px solid #111111;
+    }
+
+    #button-field button.active::before {
+        top: 0;
+    }
+
+    #button-field button.active span {
+        color: white;
+    }
 }
 
 @media (max-width: 768px) {

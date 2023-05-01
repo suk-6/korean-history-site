@@ -14,20 +14,6 @@ const timesDict = JSON.parse(decodeURIComponent(timesJSON));
 
 const buttonField = document.querySelector("#button-field");
 
-Object.keys(timesDict).forEach((key) => {
-	const span = document.createElement("span");
-	span.textContent = `${timesDict[key]}`;
-
-	const button = document.createElement("button");
-	button.id = key;
-	button.onclick = function () {
-		switchSelection(key);
-	};
-
-	button.appendChild(span);
-	buttonField.appendChild(button);
-});
-
 const selection = Object.keys(timesDict).reduce((acc, key) => {
 	acc[key] = false;
 	return acc;
@@ -40,8 +26,7 @@ const update = (times) => {
 	const button = document.querySelector(`#${times}`);
 	if (!button) return;
 
-	const key = button.id;
-	const value = selection[key] || false;
+	const value = selection[times] || false;
 
 	if (value) {
 		button.classList.add("active");
@@ -51,9 +36,24 @@ const update = (times) => {
 };
 
 const switchSelection = (times) => {
+	console.log(times);
 	selection[times] = !selection[times];
 	update(times);
 };
+
+Object.keys(timesDict).forEach((key) => {
+	const span = document.createElement("span");
+	span.textContent = `${timesDict[key]}`;
+
+	const button = document.createElement("button");
+	button.id = key;
+	button.onclick = () => {
+		switchSelection(key);
+	};
+
+	button.appendChild(span);
+	buttonField.appendChild(button);
+});
 
 const start = () => {
 	const params = Object.entries(selection)
