@@ -42,15 +42,3 @@ jobs:
                       docker pull ghcr.io/${{ github.repository_owner }}/korean-history-site:latest
                       docker rm -f korean-history-site
                       docker run -d -p 8888:8000 --name korean-history-site ghcr.io/${{ github.repository_owner }}/korean-history-site:latest
-            - name: Purge cache (history.suk.kr)
-              uses: jakejarvis/cloudflare-purge-action@master
-              with:
-                  CLOUDFLARE_ZONE: ${{ secrets.CLOUDFLARE_ZONE1 }}
-                  CLOUDFLARE_TOKEN: ${{ secrets.CLOUDFLARE_TOKEN }}
-                  PURGE_URLS: '["history.suk.kr"]'
-            - name: Purge cache (history.k-r.kr)
-              uses: jakejarvis/cloudflare-purge-action@master
-              with:
-                  CLOUDFLARE_ZONE: ${{ secrets.CLOUDFLARE_ZONE2 }}
-                  CLOUDFLARE_TOKEN: ${{ secrets.CLOUDFLARE_TOKEN }}
-                  PURGE_URLS: '["history.k-r.kr"]'
