@@ -43,16 +43,16 @@ jobs:
                       docker rm -f korean-history-site
                       docker run -d -p 8888:8000 --name korean-history-site ghcr.io/${{ github.repository_owner }}/korean-history-site:latest
             - name: Purge cache (history.suk.kr)
-                uses: nathanvaughn/actions-cloudflare-purge@master
-                with:
-                    cf_zone: ${{ secrets.CLOUDFLARE_ZONE1 }}
-                    cf_auth: ${{ secrets.CLOUDFLARE_TOKEN }}
-                    hosts: |
+              uses: nathanvaughn/actions-cloudflare-purge@master
+              with:
+                  cf_zone: ${{ secrets.CLOUDFLARE_ZONE1 }}
+                  cf_auth: ${{ secrets.CLOUDFLARE_TOKEN }}
+                  hosts: |
                       history.suk.kr
             - name: Purge cache (history.k-r.kr)
-                uses: nathanvaughn/actions-cloudflare-purge@master
-                with:
-                    cf_zone: ${{ secrets.CLOUDFLARE_ZONE2 }}
-                    cf_auth: ${{ secrets.CLOUDFLARE_TOKEN }}
-                    hosts: |
+              uses: nathanvaughn/actions-cloudflare-purge@master
+              with:
+                  cf_zone: ${{ secrets.CLOUDFLARE_ZONE2 }}
+                  cf_auth: ${{ secrets.CLOUDFLARE_TOKEN }}
+                  hosts: |
                       history.k-r.kr
